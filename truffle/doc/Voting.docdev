@@ -1,0 +1,97 @@
+{
+  "author": "Martin Leclercq",
+  "kind": "dev",
+  "methods":
+  {
+    "addProposal(string)":
+    {
+      "custom:event": "it return an ProposalRegistered event with proposalsArray id parameter",
+      "details": "Modifier : onlyVoters from Ownable is usedRequire : the ProposalsRegistrationStarted WorkflowStatus have to be setRequire : the Proposal can't be emptyDOS protection : we limit the proposal number to 100 to avoid DOS attack",
+      "params":
+      {
+        "_desc": "is the voter address"
+      }
+    },
+    "addVoter(address)":
+    {
+      "custom:event": "it return an VoterRegistered event with addresse in paramater",
+      "details": "Require : it can work only with the RegisteringVoters WorkflowStatusRequire : The voter can't be already registered",
+      "params":
+      {
+        "_addr": "is the voter address"
+      }
+    },
+    "endProposalsRegistering()":
+    {
+      "custom:event": "it return an WorkflowStatusChange with the previous status and the new one",
+      "details": "only the Owner can change the statusRequire : The workflowStatus have to be the previous of the one we want to set"
+    },
+    "endVotingSession()":
+    {
+      "custom:event": "it return an WorkflowStatusChange with the previous status and the new one",
+      "details": "only the Owner can change the statusRequire : The workflowStatus have to be the previous of the one we want to set"
+    },
+    "getOneProposal(uint256)":
+    {
+      "details": "Modifier : onlyVoters from Ownable is used",
+      "params":
+      {
+        "_id": "is the proposal id form the proposalsArray"
+      },
+      "returns":
+      {
+        "_0": "proposalsArray[_id] get one specific proposal form the proposalsArray with an id"
+      }
+    },
+    "getVoter(address)":
+    {
+      "details": "Modifier : onlyVoters from Ownable is used",
+      "params":
+      {
+        "_addr": "is the voter address"
+      },
+      "returns":
+      {
+        "_0": "voters[_addr] get a voter address in voters mapping "
+      }
+    },
+    "owner()":
+    {
+      "details": "Returns the address of the current owner."
+    },
+    "renounceOwnership()":
+    {
+      "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+    },
+    "setVote(uint256)":
+    {
+      "custom:event": "it return an Voted event with the msg.sender and the proposal id as parameter",
+      "details": "Modifier : onlyVoters from Ownable is usedRequire : the VotingSessionStarted WorkflowStatus have to be setRequire : The voters can't vote twiceRequire : The voters can vote only if the proposal exist in the proposal array",
+      "params":
+      {
+        "_id": "is the id of a proposal stocked in the proposal Array"
+      }
+    },
+    "startProposalsRegistering()":
+    {
+      "custom:event": "it return an WorkflowStatusChange with the previous status and the new one",
+      "details": "only the Owner can change the statusRequire : The workflowStatus have to be the previous of the one we want to set"
+    },
+    "startVotingSession()":
+    {
+      "custom:event": "it return an WorkflowStatusChange with the previous status and the new one",
+      "details": "only the Owner can change the statusRequire : The workflowStatus have to be the previous of the one we want to set"
+    },
+    "tallyVotes()":
+    {
+      "custom:event": "it return an WorkflowStatusChange with the previous status and the new one",
+      "details": "only the Owner can change the statusRequire : the VotingSessionEnded WorkflowStatus have to be set"
+    },
+    "transferOwnership(address)":
+    {
+      "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+    }
+  },
+  "title": "Decentralize Voting System",
+  "version": 1
+}

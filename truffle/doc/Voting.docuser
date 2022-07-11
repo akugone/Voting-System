@@ -1,0 +1,48 @@
+{
+  "kind": "user",
+  "methods":
+  {
+    "addProposal(string)":
+    {
+      "notice": "This function allow Registered Voters to add proposal"
+    },
+    "addVoter(address)":
+    {
+      "notice": "this function allow the owner to add voters"
+    },
+    "endProposalsRegistering()":
+    {
+      "notice": "This function set the endProposalsRegistering WorkflowStatus"
+    },
+    "endVotingSession()":
+    {
+      "notice": "This function set the endVotingSession WorkflowStatus"
+    },
+    "getOneProposal(uint256)":
+    {
+      "notice": "this function get one Proposal"
+    },
+    "getVoter(address)":
+    {
+      "notice": "Calculate tree age in years, rounded up, for live trees"
+    },
+    "setVote(uint256)":
+    {
+      "notice": "This function allow Registered Voters to vote for a proposal"
+    },
+    "startProposalsRegistering()":
+    {
+      "notice": "This function set the RegisteringVoters WorkflowStatus"
+    },
+    "startVotingSession()":
+    {
+      "notice": "This function set the startVotingSession WorkflowStatus"
+    },
+    "tallyVotes()":
+    {
+      "notice": "This function announce the winning porposal id"
+    }
+  },
+  "notice": "This smart contract is a decentralized voting system and allow authorize voter to propose and vote for a proposal",
+  "version": 1
+}
