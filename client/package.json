@@ -11,8 +11,8 @@
     "ganache-cli": "^6.12.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "^4.0.3",
-    "solc": "^0.8.15", 
+    "react-scripts": "^5.0.1",
+    "solc": "^0.8.15",
     "web3": "^1.7.4",
     "web3.js-browser": "^0.2.0"
   },

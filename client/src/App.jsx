@@ -1,25 +1,23 @@
-import { EthProvider } from "./contexts/EthContext";
-import Intro from "./components/Intro/";
-import Setup from "./components/Setup";
-import Demo from "./components/Demo";
-import Footer from "./components/Footer";
-import "./App.css";
+import './App.css';
 
 function App() {
   return (
-    <EthProvider>
-      <div id="App" >
-        <div className="container">
-          <Intro />
-          <hr />
-          <Setup />
-          <hr />
-          <Demo />
-          <hr />
-          <Footer />
-        </div>
-      </div>
-    </EthProvider>
+    <div className="App">
+      <header className="App-header">
+        
+        <p className='text-green-900'>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
