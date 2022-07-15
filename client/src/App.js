@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import AddVoters from "./components/AddVoters";
 import AddProposal from "./components/AddProposal";
 import Footer from "./components/Footer";
+import VotingSession from "./components/VotingSession";
+import NotOwner from "./components/NotOwner";
 
 function App(){
   
@@ -17,22 +19,25 @@ function App(){
   const [owner, setOwner] = useState(null);
   const [eventaddNewProposal, setEventaddNewProposal] = useState([]);
   const [eventaddNewVoter, setEventaddNewVoter] = useState([]);
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(0);
 
 
   useEffect(() => {
     launchWeb3();
+    if(contract){
+      getState();
+    }
+    
   },[]);
 
- 
+  
   async function launchWeb3() {
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
-
+  
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-      //console.log(accounts);
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
@@ -40,16 +45,16 @@ function App(){
       const instance = new web3.eth.Contract(
         VotingContract.abi,
         deployedNetwork && deployedNetwork.address,
+
       );
-      //console.log(instance);
+
+      //récuperer le owner
+      const getTheOWner = await instance.methods.owner().call();
 
       setAccounts(accounts);
-      setOwner(accounts[0]);
+      setOwner(getTheOWner);
       setWeb3(web3);
       setContract(instance);
-
-      //getState();
-
       
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -58,8 +63,6 @@ function App(){
       );
       console.error(error);
     }
-
-    
   }
 
 
@@ -72,19 +75,17 @@ function App(){
       let transactionAddNewVoter;
       try {
           transactionAddNewVoter = await contract.methods.addVoter(voterToAdd).send({ from: owner });
-          //setEventaddNewVoter(transactionAddNewVoter.events.VoterRegistered.returnValues.voterAddress);
+          
           let newVoters = transactionAddNewVoter.events.VoterRegistered.returnValues.voterAddress
           
           setEventaddNewVoter([...eventaddNewVoter, newVoters]);
-          
-           
+            
       } catch (error) {
           console.log(error)
       }
-    
-  
       element.value = "";
   }
+  
 
   // ::::::::::::: PROPOSAL ::::::::::::: // 
   
@@ -93,11 +94,16 @@ function App(){
     const proposalToAdd = element.value;
     let transactionAddNewProposal;
     try {
-        transactionAddNewProposal =await contract.methods.addProposal(proposalToAdd).send({ from: owner });
-        //setEventaddNewProposal(transactionAddNewProposal.events.ProposalRegistered.returnValues.proposalAddress);
-        let newProposals = transactionAddNewProposal.events.ProposalRegistered.returnValues.proposalAddress
 
-        setEventaddNewProposal([...eventaddNewProposal, newProposals]);
+        transactionAddNewProposal =await contract.methods.addProposal(proposalToAdd).send({ from: accounts[0] });
+        
+        let newProposals = transactionAddNewProposal.events.ProposalRegistered.returnValues.proposalId
+
+        let proposal = await contract.methods.getOneProposal(newProposals).call({ from: accounts[0] });
+
+        console.log(proposal);
+
+        setEventaddNewProposal([...eventaddNewProposal, "Proposition n°: " + newProposals + " " +  proposal ]);
         
     } catch (error) {
         console.log(error)
@@ -108,47 +114,54 @@ function App(){
   
   // ::::::::::::: STATE ::::::::::::: //
 
+  async function getState(){
+    const globalStatus = await contract.methods.workflowStatus().call({ from: owner });
+    setStatus(globalStatus);
+  }
+
+
   // async function changeStatusaddvoter(){
   //   await contract.methods.startaddVoterSession().send({ from: owner });
   // }
+    
 
   async function changeStatusStartProposalsRegistering(){
     await contract.methods.startProposalsRegistering().send({ from: owner });
+    getState()
   }
 
   async function changeStatusEndProposalsRegistering(){
     await contract.methods.endProposalsRegistering().send({ from: owner });
+    getState()
   }
 
   async function changeStatusStartVotingSession(){
     await contract.methods.startVotingSession().send({ from: owner });
+    getState()
   }
 
   async function changeStatusEndVotingSession(){
     await contract.methods.endVotingSession().send({ from: owner });
+    getState()
   }
 
   async function changeStatusStartTallied(){
     await contract.methods.tallyVotes().send({ from: owner });
+    getState()
   }
 
-  // async function getState(){
-  //   console.log("bonjour");
-  //   const globalStatus = await contract.methods.workflowStatus.call();
-  //   console.log(globalStatus);
-  //   setStatus(globalStatus);
-  // }
-    
-  
-
-
+ 
  // ::::::::::::: FRONT ::::::::::::: //
   
   return (
 
-    
     <div>
-      <PreHeader yourAccount={accounts}/>
+      <PreHeader 
+      yourAccount={accounts}
+      statusN1={status} 
+      
+      
+      />
 
       <Header 
       startProposal={changeStatusStartProposalsRegistering}
@@ -158,16 +171,25 @@ function App(){
       startTallied={changeStatusStartTallied}
       />
       
-      <AddVoters addVoter={addNewVoter} />
+      {(() => {
+        if(accounts == owner){
+          return <AddVoters 
+            addVoter={addNewVoter} 
+            voters={eventaddNewVoter} 
+          />
+        }
+        else{
+          return <NotOwner /> 
+        }
+      })()}
 
-      <AddProposal addVoterProposal={addNewProposal} />
 
-     
-      <ul>
-        {eventaddNewVoter.map((user,index) =>
-            <li key={index}>{user}</li>
-        )}
-      </ul>
+      <AddProposal 
+      addProposalN1 = {addNewProposal}
+      proposalListN1={eventaddNewProposal}
+      />
+
+      <VotingSession />
 
       <Footer />
 

@@ -1,15 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {XIcon } from '@heroicons/react/outline'
+import {XIcon } from '@heroicons/react/outline';
 
-const eventaddNewVoters = ["0x5530281c57A5519214495dBf9Fb5aD980a724849", "0x5530281c57A5519214495dBf9Fb5aD980a724849", "0x5530281c57A5519214495dBf9Fb5aD980a724849", "0x5530281c57A5519214495dBf9Fb5aD980a724849"];
-
-export default function VotersList() {
+export default function VotersList({votersList}) {
   return (
     <div>
-      <ul role="list" className="mt-3  sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {eventaddNewVoters.map((user,index) => (
-        <div className='flex mt-4'>
-            <li key={index} className="text-white">
+      <ul  className="mt-3  sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {votersList.map((user,index) => (
+        <div key={index} className='flex mt-4'>
+            <li className="text-white">
                 {user}    
             </li>
             <button

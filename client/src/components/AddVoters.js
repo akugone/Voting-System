@@ -1,6 +1,6 @@
 import VotersList from "./VotersList"
 
-export default function AddVoters({addVoter}) {
+export default function AddVoters({addVoter,voters}) {
     return (
       <div className="bg-white">
         <div className="">
@@ -10,7 +10,7 @@ export default function AddVoters({addVoter}) {
                 Voter's list
               </h2>
 
-              <VotersList />
+              <VotersList votersList = {voters}/>
               
             </div>
             <div className="mt-8 sm:w-full sm:max-w-md xl:mt-0 xl:ml-8">

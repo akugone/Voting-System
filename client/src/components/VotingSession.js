@@ -1,6 +1,4 @@
-import ProposalList from './ProposalList';
-
-export default function AddProposal({addProposalN1, proposalListN1}) {
+export default function VotingSession() {
     return (
       <div className="bg-white py-16 sm:py-10">
         <div className="relative ">
@@ -47,10 +45,10 @@ export default function AddProposal({addProposalN1, proposalListN1}) {
               <div className="relative">
                 <div className="sm:text-center">
                   <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
-                    Lucky you! you are on the whitelist, you can add a proposal.
+                    It's time to vote please, have a look on the proposal list and vote for one
                   </h2>
                   <p className="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
-                    As soon as the proposal session is down you will warn for the voting session on the left corner of this website, you will ass well receive a mail.
+                    You can't vote twice
                   </p>
                 </div>
                 <div className="mt-12 sm:mx-auto sm:max-w-lg sm:flex">
@@ -65,7 +63,7 @@ export default function AddProposal({addProposalN1, proposalListN1}) {
                   </div>
                   <div className="mt-4 sm:mt-0 sm:ml-3">
                     <button
-                    onClick={addProposalN1}
+                    
                     
                       className="block w-full rounded-md border border-transparent px-5 py-3 bg-indigo-500 text-base font-medium text-white shadow hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10"
                     >
@@ -73,7 +71,6 @@ export default function AddProposal({addProposalN1, proposalListN1}) {
                     </button>
                   </div>
                 </div>
-                <ProposalList proposalListN2={proposalListN1} />
               </div>
             </div>
           </div>
