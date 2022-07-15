@@ -138,11 +138,11 @@ contract Voting is Ownable {
 
     // ::::::::::::: STATE ::::::::::::: //
 
-    function startaddVoterSession() external onlyVoters {
-        //require(workflowStatus == WorkflowStatus.ProposalsRegistrationEnded, 'You can add voter');
-        workflowStatus = WorkflowStatus.RegisteringVoters;
-        //emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationEnded, WorkflowStatus.VotingSessionStarted);
-    }
+    // function startaddVoterSession() external onlyVoters {
+    //     //require(workflowStatus == WorkflowStatus.ProposalsRegistrationEnded, 'You can add voter');
+    //     workflowStatus = WorkflowStatus.RegisteringVoters;
+    //     //emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationEnded, WorkflowStatus.VotingSessionStarted);
+    // }
 
     /// @notice This function set the RegisteringVoters WorkflowStatus
     /// @dev only the Owner can change the status
