@@ -9,6 +9,7 @@ import AddProposal from "./components/AddProposal";
 import Footer from "./components/Footer";
 import VotingSession from "./components/VotingSession";
 import NotOwner from "./components/NotOwner";
+import TitleHeader from "./components/TitleHeader";
 
 function App(){
   
@@ -21,12 +22,13 @@ function App(){
   const [eventaddNewVoter, setEventaddNewVoter] = useState([]);
   const [eventaddVote, seteventaddVote] = useState([]);
   const [status, setStatus] = useState(0);
+  const [isRegistered, setIsRegistered] = useState(false);
 
 
   useEffect(() => {
     launchWeb3();
     if(contract){
-      getState();
+      //getState();
     }
 
   },[]);
@@ -89,6 +91,16 @@ function App(){
   
 
   // ::::::::::::: PROPOSAL ::::::::::::: // 
+
+  if(contract){
+    contract.events.VoterRegistered({ fromBlock: "latest" }) 
+    .on('data', event => {
+        if (event.returnValues.voterAddress == accounts[0]) {
+            setIsRegistered(true)
+        }
+    })
+
+  }
   
   async function addNewProposal(){
     const element = document.getElementById("addProposal");
@@ -138,43 +150,64 @@ function App(){
     
     element.value = "";
   }
+
+  // ::::::::::::: TALLIED VOTE ::::::::::::: // 
+
+  async function talliedVote(){
+    
+    try {
+
+        // let winningId = await contract.methods.winningProposalID;
+        console.log();
+        const tallied = await contract.methods.tallyVotes().call({ from: owner});
+        console.log(tallied);
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
+  }
+  
   
   // ::::::::::::: STATE ::::::::::::: //
 
-  async function getState(){
-    const globalStatus = await contract.methods.workflowStatus().call({ from: owner });
-    setStatus(globalStatus);
-  }
+    if(contract){
+      contract.events.WorkflowStatusChange({ fromBlock: "latest" }) 
+        .on('data', event => setStatus(event.returnValues.newStatus))
+    }
+  
+
+    // async function getState(){
+    //   const globalStatus = await contract.methods.workflowStatus().call({ from: owner });
+    //   setStatus(globalStatus);
+    // }
 
 
-  // async function changeStatusaddvoter(){
-  //   await contract.methods.startaddVoterSession().send({ from: owner });
-  // }
     
 
   async function changeStatusStartProposalsRegistering(){
     await contract.methods.startProposalsRegistering().send({ from: owner });
-    getState()
+
   }
 
   async function changeStatusEndProposalsRegistering(){
     await contract.methods.endProposalsRegistering().send({ from: owner });
-    getState()
+  
   }
 
   async function changeStatusStartVotingSession(){
     await contract.methods.startVotingSession().send({ from: owner });
-    getState()
+   
   }
 
   async function changeStatusEndVotingSession(){
     await contract.methods.endVotingSession().send({ from: owner });
-    getState()
+
   }
 
   async function changeStatusStartTallied(){
     await contract.methods.tallyVotes().send({ from: owner });
-    getState()
+
   }
 
  
@@ -186,39 +219,54 @@ function App(){
       <PreHeader 
       yourAccount={accounts}
       statusN1={status} 
-      
-      
       />
 
-      <Header 
-      startProposal={changeStatusStartProposalsRegistering}
-      endProposal={changeStatusEndProposalsRegistering}
-      startVoting={changeStatusStartVotingSession}
-      endVoting={changeStatusEndVotingSession}
-      startTallied={changeStatusStartTallied}
-      />
+      <TitleHeader />
       
+
       {(() => {
         if(accounts == owner){
-          return <AddVoters 
+          return <div>
+            <Header 
+          startProposal={changeStatusStartProposalsRegistering}
+          endProposal={changeStatusEndProposalsRegistering}
+          startVoting={changeStatusStartVotingSession}
+          endVoting={changeStatusEndVotingSession}
+          startTallied={changeStatusStartTallied}
+          talliedVoteN1={talliedVote}
+          />
+          <AddVoters 
             addVoter={addNewVoter} 
             voters={eventaddNewVoter} 
           />
+          </div>
         }
-        else{
+        else if(!isRegistered){
           return <NotOwner /> 
         }
       })()}
 
 
-      <AddProposal 
-      addProposalN1 = {addNewProposal}
-      proposalListN1={eventaddNewProposal}
-      />
+      {
+        (isRegistered || accounts == owner && status == 2) && (
+          <AddProposal 
+          addProposalN1 = {addNewProposal}
+          proposalListN1={eventaddNewProposal}
+          />
+        )
+      }
 
-      <VotingSession 
-      addVoteN1 = {addVoting}
-      />
+      {
+        (accounts == owner || status == 3) && (
+          <VotingSession 
+         addVoteN1 = {addVoting}
+          />
+        )
+      }
+      
+
+
+      
 
       <Footer />
 

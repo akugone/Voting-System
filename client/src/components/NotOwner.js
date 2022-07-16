@@ -1,23 +1,18 @@
-import { XCircleIcon } from '@heroicons/react/solid'
-
 export default function NotOwner() {
-  return (
-    <div className="rounded-md bg-red-50 p-4">
-      <div className="flex ">
-        <div className="flex-shrink-0">
-          <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
-        </div>
-        <div className="ml-3">
-          <h3 className="text-sm font-medium text-red-800">YOU CAN'T VIEW THIS MODULE, YOU ARE NOT A OWNER</h3>
-          <div className="mt-2 text-sm text-red-700">
-            <ul role="list" className="list-disc pl-5 space-y-1">
-              <li>If you wan't to be one give me some money</li>
 
-            </ul>
+    return (
+
+      <div className="flex justify-center ">
+        <div className="text-center rounded-md bg-red-50 p-4 mt-10 w-1/3"> 
+          <h3 className="text-sm font-medium text-red-800">YOU CAN'T VIEW THIS MODULE, PLEASE ASK THE OWNER TO ADD YOU IN THE WHITLIST</h3>
+          <div className="mt-2 text-sm text-red-700">
+            
+              <p>Ce composant ne sert pas a grand chose mais c'est juste pour l'utilisation d'une conditions "si tu n'est pas le owner"</p>    
           </div>
         </div>
       </div>
-    </div>
   )
+
+  
 }
 

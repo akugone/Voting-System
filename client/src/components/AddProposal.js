@@ -1,6 +1,8 @@
 import ProposalList from './ProposalList';
 
+
 export default function AddProposal({addProposalN1, proposalListN1}) {
+
     return (
       <div className="bg-white py-16 sm:py-10">
         <div className="relative ">
