@@ -19,6 +19,7 @@ function App(){
   const [owner, setOwner] = useState(null);
   const [eventaddNewProposal, setEventaddNewProposal] = useState([]);
   const [eventaddNewVoter, setEventaddNewVoter] = useState([]);
+  const [eventaddVote, seteventaddVote] = useState([]);
   const [status, setStatus] = useState(0);
 
 
@@ -27,7 +28,7 @@ function App(){
     if(contract){
       getState();
     }
-    
+
   },[]);
 
   
@@ -104,6 +105,32 @@ function App(){
         console.log(proposal);
 
         setEventaddNewProposal([...eventaddNewProposal, "Proposition n°: " + newProposals + " " +  proposal ]);
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
+    element.value = "";
+  }
+
+
+ // ::::::::::::: SESSION VOTE ::::::::::::: // 
+
+  async function addVoting(){
+    const element = document.getElementById("addSession");
+    console.log(element.value);
+    const voteToAdd = element.value;
+    console.log(voteToAdd);
+    let transactionAddNewVote;
+    try {
+
+        transactionAddNewVote =await contract.methods.setVote(voteToAdd).send({ from: accounts[0] });
+        console.log(transactionAddNewVote);
+        
+        let newVote = transactionAddNewVote.events.Voted.returnValues.proposalId
+        console.log(newVote);
+
+        seteventaddVote([...eventaddVote, newVote]);
         
     } catch (error) {
         console.log(error)
@@ -189,7 +216,9 @@ function App(){
       proposalListN1={eventaddNewProposal}
       />
 
-      <VotingSession />
+      <VotingSession 
+      addVoteN1 = {addVoting}
+      />
 
       <Footer />
 

@@ -23,6 +23,8 @@ export default function PreHeader({yourAccount, statusN1}) {
   else{
     currentStatus = 'VotesTallied'
   }
+
+  
   
   return (
     <div className="bg-indigo-600">

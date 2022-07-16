@@ -1,4 +1,4 @@
-export default function VotingSession() {
+export default function VotingSession({addVoteN1}) {
     return (
       <div className="bg-white py-16 sm:py-10">
         <div className="relative ">
@@ -55,19 +55,19 @@ export default function VotingSession() {
                   <div className="min-w-0 flex-1">
                     
                     <input
-                      id="addProposal"
+                      id="addSession"
                       type="text"
                       className="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
-                      placeholder="Enter your proposal"
+                      placeholder="Please enter your vote"
                     />
                   </div>
                   <div className="mt-4 sm:mt-0 sm:ml-3">
                     <button
-                    
+                    onClick={addVoteN1}
                     
                       className="block w-full rounded-md border border-transparent px-5 py-3 bg-indigo-500 text-base font-medium text-white shadow hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10"
                     >
-                    Add a proposal
+                    Send my vote
                     </button>
                   </div>
                 </div>
