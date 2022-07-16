@@ -1,6 +1,63 @@
+import React, { useState, useEffect} from "react";
 import VotersList from "./VotersList"
 
-export default function AddVoters({addVoter,voters}) {
+export default function AddVoters({owner, contract}) {
+
+  const [eventaddNewVoter, setEventaddNewVoter] = useState([]);
+
+
+  useEffect(() => {
+
+    if( ! contract || ! owner ){
+      return
+    }
+    
+    async function getRegistered(){
+      console.log('toto')
+        try{
+
+          const existingVoters = await contract.getPastEvents('VoterRegistered', { fromBlock: 0, toBlock: 'latest' });
+
+          let voterArray = existingVoters.map(event => event.returnValues.voterAddress)
+
+          console.log(voterArray);
+         
+       
+        
+           
+          // const existingVoters = contract.voters;
+          console.log(existingVoters);
+          if( voterArray?.length > 0 ){
+            setEventaddNewVoter(voterArray);
+          }
+          //setEventaddNewVoter([...existingVoters]);
+        } catch(error){
+          console.log(error)
+        }
+      
+    }
+  
+    getRegistered()
+  }, [contract, owner]);
+
+
+  async function addNewVoter(){
+    const element = document.getElementById("addVoter");
+    const voterToAdd = element.value;
+
+    try {
+        const transactionAddNewVoter = await contract.methods.addVoter(voterToAdd).send({ from: owner });
+        
+        let newVoters = transactionAddNewVoter.events.VoterRegistered.returnValues.voterAddress
+        
+        setEventaddNewVoter([...eventaddNewVoter, newVoters]);
+          
+    } catch (error) {
+        console.log(error)
+    }
+    element.value = "";
+}
+
     return (
       <div className="bg-white">
         <div className="">
@@ -10,7 +67,7 @@ export default function AddVoters({addVoter,voters}) {
                 Voter's list
               </h2>
 
-              <VotersList votersList = {voters}/>
+              <VotersList votersList = {eventaddNewVoter}/>
               
             </div>
             <div className="mt-8 sm:w-full sm:max-w-md xl:mt-0 xl:ml-8">
@@ -25,7 +82,7 @@ export default function AddVoters({addVoter,voters}) {
                 />
                 <button
                   type="submit"
-                  onClick={addVoter}
+                  onClick={addNewVoter}
                   className="mt-3 w-full flex items-center justify-center px-5 py-3 border border-transparent shadow text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white sm:mt-0 sm:ml-3 sm:w-auto sm:flex-shrink-0"
                 >
                   Add voter

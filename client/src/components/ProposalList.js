@@ -1,18 +1,14 @@
+import Proposal from './Proposal';
 
-
-export default function ProposalList({proposalListN2}) {
+export default function ProposalList({proposalsIds, contract, accounts}) {
   return (
-    <div>
+    <>
       <ul  className="mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {proposalListN2.map((user,index) => (
-        <div key={index} className='flex mt-4'>
-            <li  className="text-white">
-                {user}    
-            </li>
-        </div> 
+        {proposalsIds.map((id) => (
+          <Proposal key={id} proposalId={id} contract={contract} accounts={accounts} />
         ))}   
       </ul>
-    </div>
+    </>
   )
 }
 

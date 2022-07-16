@@ -1,6 +1,33 @@
-import ResultVote from "./ResultVote";
+export default function Header({owner, contract}) {
 
-export default function Header({startProposal,endProposal,startVoting,endVoting,startTallied,talliedVoteN1}) {
+
+  async function changeStatusStartProposalsRegistering(){
+    await contract.methods.startProposalsRegistering().send({ from: owner });
+
+  }
+
+  async function changeStatusEndProposalsRegistering(){
+    await contract.methods.endProposalsRegistering().send({ from: owner });
+  
+  }
+
+  async function changeStatusStartVotingSession(){
+    await contract.methods.startVotingSession().send({ from: owner });
+   
+  }
+
+  async function changeStatusEndVotingSession(){
+    await contract.methods.endVotingSession().send({ from: owner });
+
+  }
+
+  async function changeStatusStartTallied(){
+    await contract.methods.tallyVotes().send({ from: owner });
+
+  }
+
+  
+  
   return (
     <div className="relative bg-gray-50 overflow-hidden">
       <div className="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
@@ -65,7 +92,7 @@ export default function Header({startProposal,endProposal,startVoting,endVoting,
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <button
-                  onClick={startProposal}
+                  onClick={changeStatusStartProposalsRegistering}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   Add Proposal
@@ -73,7 +100,7 @@ export default function Header({startProposal,endProposal,startVoting,endVoting,
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <button
-                  onClick={endProposal}
+                  onClick={changeStatusEndProposalsRegistering}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   End Proposal
@@ -81,7 +108,7 @@ export default function Header({startProposal,endProposal,startVoting,endVoting,
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <button
-                  onClick={startVoting}
+                  onClick={changeStatusStartVotingSession}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   Start Voting
@@ -89,7 +116,7 @@ export default function Header({startProposal,endProposal,startVoting,endVoting,
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <button
-                  onClick={endVoting}
+                  onClick={changeStatusEndVotingSession}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   End Voting
@@ -97,14 +124,13 @@ export default function Header({startProposal,endProposal,startVoting,endVoting,
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <button
-                  onClick={startTallied}
+                  onClick={changeStatusStartTallied}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   Tallied Vote
                 </button>
               </div>
             </div>  
-             <ResultVote talliedVoteN2={talliedVoteN1} />
           </div>
         </main>
       </div>

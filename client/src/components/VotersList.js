@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import {XIcon } from '@heroicons/react/outline';
 
+
 export default function VotersList({votersList}) {
   return (
     <div>

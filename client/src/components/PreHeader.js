@@ -1,9 +1,10 @@
-/* This example requires Tailwind CSS v2.0+ */
+import useAccounts from '../hooks/useAccounts';
 import { SpeakerphoneIcon } from '@heroicons/react/outline'
 
-export default function PreHeader({yourAccount, statusN1}) {
+export default function PreHeader({accounts, status}) {
 
-  let id = statusN1
+
+  let id = status
   let currentStatus = ''
 
   if(id == 0) {
@@ -44,7 +45,7 @@ export default function PreHeader({yourAccount, statusN1}) {
             <div
               className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"
             >
-              <span className='text-red-900'>Your address is  : </span> {yourAccount}
+              <span className='text-red-900'>Your address is  : </span> {accounts}
             </div>
           </div>
         

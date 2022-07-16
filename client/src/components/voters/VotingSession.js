@@ -1,4 +1,30 @@
-export default function VotingSession({addVoteN1}) {
+import ProposalList from '../ProposalList';
+import React, { useState } from "react";
+import useListProposal from '../../hooks/useListProposal';
+
+export default function VotingSession({accounts, contract}) {
+
+    const{eventaddNewProposal} = useListProposal(contract, accounts);
+
+    async function addVoting(){
+      const element = document.getElementById("addSession");
+      const voteToAdd = element.value;
+      try {
+
+          const transactionAddNewVote = await contract.methods.setVote(voteToAdd).send({ from: accounts[0] });
+
+          // let newVote = transactionAddNewVote.events.Voted.returnValues.proposalId
+
+          // seteventaddVote([...eventaddVote, newVote]);
+          
+      } catch (error) {
+          console.log(error)
+      }
+      
+      element.value = "";
+
+    }
+
     return (
       <div className="bg-white py-16 sm:py-10">
         <div className="relative ">
@@ -63,7 +89,7 @@ export default function VotingSession({addVoteN1}) {
                   </div>
                   <div className="mt-4 sm:mt-0 sm:ml-3">
                     <button
-                    onClick={addVoteN1}
+                    onClick={addVoting}
                     
                       className="block w-full rounded-md border border-transparent px-5 py-3 bg-indigo-500 text-base font-medium text-white shadow hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10"
                     >
@@ -72,6 +98,7 @@ export default function VotingSession({addVoteN1}) {
                   </div>
                 </div>
               </div>
+              <ProposalList proposalsIds={eventaddNewProposal} contract={contract} accounts={accounts}/>
             </div>
           </div>
         </div>
