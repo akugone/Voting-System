@@ -78,7 +78,7 @@ contract Voting is Ownable {
     /// @dev Require : it can work only with the RegisteringVoters WorkflowStatus
     /// @dev Require : The voter can't be already registered
     /// @param _addr is the voter address
-    /// @custom:event it return an VoterRegistered event with addresse in paramater
+    /// @custom:event it return an VoterRegistered event with addresse in parameter
 
     function addVoter(address _addr) external  {
         require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Voters registration is not open yet');

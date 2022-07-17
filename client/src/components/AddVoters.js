@@ -13,18 +13,15 @@ export default function AddVoters({owner, contract}) {
     }
     
     async function getRegistered(){
-      console.log('toto')
+
         try{
 
           const existingVoters = await contract.getPastEvents('VoterRegistered', { fromBlock: 0, toBlock: 'latest' });
 
           let voterArray = existingVoters.map(event => event.returnValues.voterAddress)
 
-          console.log(voterArray);
-         
        
-        
-           
+
           // const existingVoters = contract.voters;
           console.log(existingVoters);
           if( voterArray?.length > 0 ){

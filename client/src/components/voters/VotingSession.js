@@ -10,17 +10,12 @@ export default function VotingSession({accounts, contract}) {
       const element = document.getElementById("addSession");
       const voteToAdd = element.value;
       try {
-
           const transactionAddNewVote = await contract.methods.setVote(voteToAdd).send({ from: accounts[0] });
-
           // let newVote = transactionAddNewVote.events.Voted.returnValues.proposalId
-
-          // seteventaddVote([...eventaddVote, newVote]);
-          
+          // seteventaddVote([...eventaddVote, newVote]);  
       } catch (error) {
           console.log(error)
-      }
-      
+      } 
       element.value = "";
 
     }

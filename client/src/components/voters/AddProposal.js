@@ -30,8 +30,6 @@ export default function AddProposal({accounts, contract}) {
     element.value = "";
   }
 
-  console.log(eventaddNewProposal)
-
     return (
       <div className="bg-white py-16 sm:py-10">
         <div className="relative ">
@@ -78,10 +76,10 @@ export default function AddProposal({accounts, contract}) {
               <div className="relative">
                 <div className="sm:text-center">
                   <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
-                    Lucky you! you are on the whitelist, you can add a proposal.
+                    Lucky you! you are on the whitelist <br></br> you will be able to send your proposal soon.
                   </h2>
                   <p className="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
-                    As soon as the proposal session is down you will warn for the voting session on the left corner of this website, you will ass well receive a mail.
+                    Please check the add proposal status on the left corner <br></br> (if you try before your try will be revert)
                   </p>
                 </div>
                 <div className="mt-12 sm:mx-auto sm:max-w-lg sm:flex">

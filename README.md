@@ -1,70 +1,18 @@
-# Exercice de test unitaire
-
-Présentation en video
+# Présentation du projet Voting
 
 
-## **Tests**
 
-	 TESTS ON REGISTERED FUNCTION
-
-- `describe("Registered test section)"` l-19
-
-*type : expect*
-
-`it("is whitelisteded"` / l-27 ==> We are testing if the Voter is registered
-
-*type : expect*
-
-`it("is whitelisteded"` / l-35 ==> We are testing if the Voter is NOT registered
-
-*type : expectEvent*
-
-`it("is not whitelisted"`/ l-42 ==> We are testing if the event **VoterRegistered** well trigger
+VIDEO : Front - UI and UX presentation
+https://www.loom.com/share/1d56acfa06714f2f904201503032bf23
 
 
-	TESTS ON VOTING FUNCTION
+VIDEO : Natspec && DOS Protection
+https://www.loom.com/share/7b75d40ce5ca4faaa4a0485a08ed0330
 
-- `describe("Voting test section")"` / l-58
 
-*type : expect*
+Backend presentation Part 1
+https://www.loom.com/share/cd7a3c806a27441b8f72bf2074658173
 
-`it("he hasn't voted yet")` / l-70 ==> We are testing if the voter are already voted
+Backend presentation part 2
+https://www.loom.com/share/90690e9f9e5548d2b88a03dcba0d0b21
 
-*type : expectRevert*
-
-`it("should not allow if already voted")` / l-78 ==> We are testing if the voter tryu to vote multiple time.
-
-*type : expectEvent*
-
-`it("should return event after the vote")`/ l-88 ==> We are testing if the **Voted** event well  trigger
-
-    TESTS ON PROPOSAL FUNCTION
-
-- `describe("check proposal section")"` / l-108
-
-*type : expectRevert*
-
-`it("should be onlyvoter")` / l-117 ==> We are testing if only voter can make a proposal
-
-*type : expectRevert*
-
-`it("should not have empty proposal")` / l-122 ==> We are testing if the voter try to submit empty proposal
-
-*type : expectEvent*
-
-`it("should return event after proposal")`/ l-130 ==> We are testing if the **ProposalRegistered** event well trigger
-
-    TESTS ON TALLY FUNCTION
-
-- `describe("Tally test section")"` / l-146
-
-*type : expectEvent*
-
-`it("should return event after tallyl")`/ l-159 ==> We are testing if the **WorkflowStatusChange** event well trigger
-
-    SOLIDITY COVERAGE RESULT
-
-| File | % Stmts | % Branch | % Funcs | % Lines | Uncovered Lines
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| Voting.sol | 76.92 | 53.57  | 81.82 | 78.0 |  135,137,138
-| All files  | 76.92 | 53.57 | 81.82 | 78.0 |  |

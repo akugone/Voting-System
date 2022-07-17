@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOwner } from "../services/web3Service";
+
 
 
 export default function useListProposal(contract, accounts) {

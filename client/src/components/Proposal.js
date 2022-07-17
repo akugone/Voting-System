@@ -39,8 +39,8 @@ export default function Proposal({proposalId, contract, accounts}) {
 
   return (
       <div className='flex mt-4'>
-          <li  className="text-red-900">
-            {`Proposition n°:${ proposalId } ${ proposal.description } ${proposal.voteCount} votes`}
+          <li  className="text-black-900 font-semibold">
+            {`Proposition n°: ${ proposalId } | ${ proposal.description } | ${proposal.voteCount} votes`}
           </li>
       </div>
   )

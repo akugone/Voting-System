@@ -1,4 +1,3 @@
-import useAccounts from '../hooks/useAccounts';
 import { SpeakerphoneIcon } from '@heroicons/react/outline'
 
 export default function PreHeader({accounts, status}) {

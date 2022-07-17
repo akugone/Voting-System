@@ -6,14 +6,11 @@ import ResultVoterView from "./ResultVoterView";
 
 export default function StatusVoterView({status, accounts, contract, owner}) {
 
-    console.log(status);
-
-    
     return (
     <>
 
 {
-        // 0 = add proposal
+        // 0 = add voter
         (status == 0) && (
             <AddProposal accounts={accounts} contract={contract}/>
         )
@@ -48,7 +45,7 @@ export default function StatusVoterView({status, accounts, contract, owner}) {
     }
 
     {
-        // 4 = end Voting
+        // 5 = Tally vote
         (status == 5) && (
             <ResultVoterView contract={contract} owner={owner} accounts={accounts} />
         )
