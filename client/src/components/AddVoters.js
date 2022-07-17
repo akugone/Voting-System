@@ -20,8 +20,6 @@ export default function AddVoters({owner, contract}) {
 
           let voterArray = existingVoters.map(event => event.returnValues.voterAddress)
 
-       
-
           // const existingVoters = contract.voters;
           console.log(existingVoters);
           if( voterArray?.length > 0 ){

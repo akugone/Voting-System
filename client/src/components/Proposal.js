@@ -20,8 +20,6 @@ export default function Proposal({proposalId, contract, accounts}) {
     contract.events.Voted({ fromBlock: "latest" }) 
       .on('data', async event => {
 
-        console.log(event)
-        
         let proposalData = await contract.methods.getOneProposal(event.returnValues.proposalId).call({ from: accounts[0] });
         setProposal(proposalData)
       })
@@ -34,8 +32,6 @@ export default function Proposal({proposalId, contract, accounts}) {
   if( ! proposal ){
     return null;
   }
-
-  console.log(proposal);
 
   return (
       <div className='flex mt-4'>
