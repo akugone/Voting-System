@@ -1,3 +1,6 @@
+# This project is one of my first web3 project so i keep it as a souvenir :)
+
+
 ## Présentation du projet Voting
 
 Find the App on 
